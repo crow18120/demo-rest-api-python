@@ -6,7 +6,7 @@ from django.contrib.auth.models import BaseUserManager
 
 # Create your models here.
 
-class UserProfileManager():
+class UserProfileManager(BaseUserManager):
     """Manager for user profiles"""
 
     def create_user(self, email, name, password=None):
@@ -15,7 +15,7 @@ class UserProfileManager():
             raise ValueError('User must have an email address')
 
         email = self.normalize_email(email)
-        user = self.model(email = email, name = name)
+        user = self.model(email = email, name = name,)
 
         user.set_password(password)
         user.save(using=self._db)
@@ -31,7 +31,6 @@ class UserProfileManager():
         user.save(using = self._db)
 
         return user
-
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Database model for users in the system"""
